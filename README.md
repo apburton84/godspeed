@@ -65,7 +65,7 @@ from godspeed import godspeed, processor
 
 - This line imports two components from the "godspeed" library: the `godspeed` function and the `processor` decorator.
 
-2. `@processor(order=1)` Decorator:
+2.The `@processor` Decorator:
 
 ```python
 @processor(order=1)
