@@ -1,6 +1,6 @@
 # Godspeed
 
-## Memory Efficient Python Text Stream Transformer
+## Memory Efficient Python Text Stream Processor
 
 ![Project Logo](project_logo.png)
 
