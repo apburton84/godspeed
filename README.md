@@ -53,6 +53,62 @@ with godspeed(file_obj) as f:
       pass # Do something with the line (post processing)
 ```
 
+The main goal of the code is to ensure that all rows in the CSV file have the same number of columns by padding the rows with separators if necessary.
+
+Let's break down the code step by step and explain its functionality:
+
+1. Import Statements:
+
+```python
+from godspeed import godspeed, processor
+```
+
+- This line imports two components from the "godspeed" library: the `godspeed` function and the `processor` decorator.
+
+2. `@processor(order=1)` Decorator:
+
+```python
+@processor(order=1)
+def ensure_equal_columns(chunk, width=10, sep=","):
+   """Ensure that all rows have the same number of columns"""
+   chunk = chunk.rstrip("\n")
+   if chunk.count(sep) < width:
+       chunk += sep * (width - chunk.count(sep)) + "\n"
+   return chunk
+```
+
+- We define a transformation function `ensure_equal_columns` and decorated it with `@processor(order=1)`. 
+- The `order=1` argument indicates the order in which processors will be applied. With the `deault=0`
+- The function takes three parameters:
+  - `chunk`: A single line (chunk) read from the CSV file.
+  - `width`: The desired width (number of columns) for each row.
+  - `sep`: The separator used in the CSV file (default is a comma `,`).
+- The function's purpose is to ensure that each line (row) in the CSV file has the same number of columns. It does this by counting the occurrences of the separator in the current chunk. If the count is less than the desired width, it pads the chunk with additional separators to match the desired width. Finally, it returns the modified chunk.
+
+3. File Handling and Processing:
+
+```python
+file = open("large_file.csv")
+with godspeed(file_obj) as f:
+   for chunk in f:
+       pass # Do something with the line (post processing)
+```
+
+- This part of the code demonstrates how to use the `godspeed` library to process a large CSV file.
+- It opens the file named "large_file.csv".
+- The `godspeed` function is used as a context manager by passing the file object `file` to it.
+- Inside the context, a loop iterates over the chunks (lines) of the file.
+- Sequencially applying the transformations to each line.
+
+
+**Ease of Use:**
+
+The "godspeed" library simplifies the process of efficiently processing large CSV files by breaking down the processing steps into smaller, manageable functions. By using the `@processor` decorator, you can define individual processing functions and apply them in a specified order. This modular approach makes the code more readable, maintainable, and extensible.
+
+The provided `ensure_equal_columns` function demonstrates how you can easily add custom processing steps to manipulate the data in chunks before further processing. This can be especially useful when dealing with CSV files that might have inconsistencies in their structure.
+
+In summary, the code showcases a streamlined approach to processing large CSV files using the "godspeed" library, making it easier to manage and modify various processing tasks while efficiently handling large datasets.
+
 ## Contributions
 
 Contributions to this project are welcome! If you have suggestions, bug reports, or want to add new features, feel free to open issues and pull requests on the GitHub repository.
