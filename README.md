@@ -34,7 +34,7 @@ pip install godspeed
 
 To illustrate the usage of this library, here's a simple example that reads a text file, ensures each row has an equal number of columns, and make it available again for further processing:
 
-```
+```python
 from godspeed import godspeed, processor
 
 
