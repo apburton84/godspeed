@@ -32,11 +32,9 @@ pip install godspeed
 
 ## Example
 
-To illustrate the usage of this library, here's a simple example that reads a text file, converts all text to uppercase, and writes the result to another file:
+To illustrate the usage of this library, here's a simple example that reads a text file, ensures each row has an equal number of columns, and make it available again for further processing:
 
 ```
-import io
-
 from godspeed import godspeed, processor
 
 
@@ -49,14 +47,10 @@ def ensure_equal_columns(chunk, width=10, sep=","):
     return chunk
 
 
-file_obj = io.StringIO("1,2,3,4\n1,2,3,4\n1,2,3,4\n")
-
-for chunk in godspeed(file_obj):
-    assert chunk == "1,2,3,4,,,,,,,\n"
-
+file = open("large_file.csv")
 with godspeed(file_obj) as f:
     for chunk in f:
-        assert chunk == "1,2,3,4,,,,,,,\n"
+      pass # Do something with the line (post processing)
 ```
 
 ## Contributions
