@@ -1,6 +1,6 @@
-# Godspeed
+# ⚡ Godspeed
 
-## Memory Efficient Python Text Stream Processor
+## Memory Efficient Stream Processor
 
 ![Project Logo](project_logo.png)
 
@@ -17,7 +17,7 @@ Whether you're dealing with large text files, real-time data streams, or any sce
 - **Easy-to-Use**: The provided API is designed to be user-friendly, making it accessible for developers of various skill levels.
 - **Integration**: The project can seamlessly integrate into various data processing pipelines, ETL workflows, and text analysis applications.
 
-## Installation
+## ⚒️  Installation
 
 You can install the package from the Python Package Index (PyPI) using `pip`:
 
@@ -25,13 +25,13 @@ You can install the package from the Python Package Index (PyPI) using `pip`:
 pip install godspeed
 ```
 
-## Usage
+## 🪧 Usage
 
 - **Custom Transformation**: Define your custom transformation function that takes a line of text as input and returns the transformed line. This function can perform any operation you need, such as text manipulation, data extraction, or filtering.
 - **Process Stream**: Use the `godspeed()` function to process the text stream. Provide the input and output file handles along with your custom transformation function.
 - **Efficient Processing**: The library processes the text stream line by line, minimizing memory usage. It's suitable for situations where loading the entire text data into memory is not feasible.
 
-## Example
+## 📣 Example
 
 To illustrate the usage of this library, here's a simple example that reads a text file, ensures each row has an equal number of columns, and make it available again for further processing:
 
@@ -110,7 +110,7 @@ The provided `ensure_equal_columns` function demonstrates how you can easily add
 
 In summary, the code showcases a streamlined approach to processing large CSV files using the "godspeed" library, making it easier to manage and modify various processing tasks while efficiently handling large datasets.
 
-## Contributions
+## 🙏 Contributions
 
 Contributions to this project are welcome! If you have suggestions, bug reports, or want to add new features, feel free to open issues and pull requests on the GitHub repository.
 License
