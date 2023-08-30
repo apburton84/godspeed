@@ -1,4 +1,4 @@
-# ⚡ Godspeed
+# ⚡ Godspeed IO
 
 ## Memory Efficient Stream Processor
 
@@ -20,13 +20,13 @@ Whether you're dealing with large text files, real-time data streams, or any sce
 You can install the package from the Python Package Index (PyPI) using `pip`:
 
 ```bash
-pip install godspeed
+pip install godspeedio
 ```
 
 ## 🪧 Usage
 
 - **Custom Transformation**: Define your custom transformation function that takes a line of text as input and returns the transformed line. This function can perform any operation you need, such as text manipulation, data extraction, or filtering.
-- **Process Stream**: Use the `godspeed()` function to process the text stream. Provide the input and output file handles along with your custom transformation function.
+- **Process Stream**: Use the `godspeedio()` function to process the text stream. Provide the input and output file handles along with your custom transformation function.
 - **Efficient Processing**: The library processes the text stream line by line, minimizing memory usage. It's suitable for situations where loading the entire text data into memory is not feasible.
 
 ## 📣 Example
@@ -34,7 +34,7 @@ pip install godspeed
 To illustrate the usage of this library, here's a simple example that reads a text file, ensures each row has an equal number of columns, and make it available again for further processing:
 
 ```python
-from godspeed import godspeed, processor
+from godspeedio import godspeed, processor
 
 
 @processor(order=1)
@@ -47,7 +47,7 @@ def ensure_equal_columns(chunk, width=10, sep=","):
 
 
 file = open("large_file.csv")
-with godspeed(file_obj) as f:
+with godspeedio(file_obj) as f:
     for chunk in f:
       pass # Do something with the line (post processing)
 ```
@@ -59,10 +59,10 @@ Let's break down the code step by step and explain its functionality:
 1. Import Statements:
 
 ```python
-from godspeed import godspeed, processor
+from godspeedio import godspeed, processor
 ```
 
-- This line imports two components from the "godspeed" library: the `godspeed` function and the `processor` decorator.
+- This line imports two components from the "godspeedio" library: the `godspeed` function and the `processor` decorator.
 
 2.The `@processor` Decorator:
 
@@ -88,25 +88,25 @@ def ensure_equal_columns(chunk, width=10, sep=","):
 
 ```python
 file = open("large_file.csv")
-with godspeed(file_obj) as f:
+with godspeedio(file_obj) as f:
    for chunk in f:
        pass # Do something with the line (post processing)
 ```
 
-- This part of the code demonstrates how to use the `godspeed` library to process a large CSV file.
+- This part of the code demonstrates how to use the `godspeedio` library to process a large CSV file.
 - It opens the file named "large_file.csv".
-- The `godspeed` function is used as a context manager by passing the file object `file` to it.
+- The `godspeedio` function is used as a context manager by passing the file object `file` to it.
 - Inside the context, a loop iterates over the chunks (lines) of the file.
 - Sequencially applying the transformations to each line.
 
 
 **Ease of Use:**
 
-The "godspeed" library simplifies the process of efficiently processing large CSV files by breaking down the processing steps into smaller, manageable functions. By using the `@processor` decorator, you can define individual processing functions and apply them in a specified order. This modular approach makes the code more readable, maintainable, and extensible.
+The "godspeedio" library simplifies the process of efficiently processing large CSV files by breaking down the processing steps into smaller, manageable functions. By using the `@processor` decorator, you can define individual processing functions and apply them in a specified order. This modular approach makes the code more readable, maintainable, and extensible.
 
 The provided `ensure_equal_columns` function demonstrates how you can easily add custom processing steps to manipulate the data in chunks before further processing. This can be especially useful when dealing with CSV files that might have inconsistencies in their structure.
 
-In summary, the code showcases a streamlined approach to processing large CSV files using the "godspeed" library, making it easier to manage and modify various processing tasks while efficiently handling large datasets.
+In summary, the code showcases a streamlined approach to processing large CSV files using the "godspeedio" library, making it easier to manage and modify various processing tasks while efficiently handling large datasets.
 
 ## 🙏 Contributions
 

@@ -1,7 +1,7 @@
 import io
 
-from godspeed.streaming import GSStringWrapper
-from godspeed import godspeed
+from godspeedio.streaming import GSStringWrapper
+from godspeedio import godspeed
 
 
 def test_godspeed():
