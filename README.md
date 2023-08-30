@@ -2,8 +2,6 @@
 
 ## Memory Efficient Stream Processor
 
-![Project Logo](project_logo.png)
-
 Welcome to the Godspeed project! 
 
 This project provides a versatile and memory-efficient solution for processing and transforming text streams in Python. 
