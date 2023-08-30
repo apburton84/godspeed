@@ -156,18 +156,11 @@ with godspeed(file_obj) as f:
 
 In summary, this example showcases the use of the `godspeedio` library's state management functionality, allowing you to maintain and update shared data (in this case, "parent_id") while processing a large CSV file. The actual post-processing logic should be implemented inside the loop to take advantage of the state information stored in the `add_relationship` function.
 
-
-**Ease of Use:**
-
-The "godspeedio" library simplifies the process of efficiently processing large CSV files by breaking down the processing steps into smaller, manageable functions. By using the `@processor` decorator, you can define individual processing functions and apply them in a specified order. This modular approach makes the code more readable, maintainable, and extensible.
-
-The provided `ensure_equal_columns` function demonstrates how you can easily add custom processing steps to manipulate the data in chunks before further processing. This can be especially useful when dealing with CSV files that might have inconsistencies in their structure.
-
-In summary, the code showcases a streamlined approach to processing large CSV files using the "godspeedio" library, making it easier to manage and modify various processing tasks while efficiently handling large datasets.
-
 ## 🙏 Contributions
 
 Contributions to this project are welcome! If you have suggestions, bug reports, or want to add new features, feel free to open issues and pull requests on the GitHub repository.
-License
+
+
+## ⚖️ License
 
 This project is licensed under the MIT License.
