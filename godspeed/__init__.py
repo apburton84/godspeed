@@ -1,2 +1,2 @@
 from .streaming import godspeed
-from .streaming import processor
+from .processing import processor

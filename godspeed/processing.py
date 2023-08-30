@@ -1,25 +1,11 @@
-from .streaming import processor
+from decorator import decorator
+from .transformers import TRANSFORMERS
 
 
-@processor(order=2)
-def to_uppercase(chunk):
-    """Transform a string to uppercase"""
-    return chunk.upper()
+def processor(order=1):
+    """Register a transformer function to be used in the pipeline"""
 
+    def _processor(func, *args, **kwargs):
+        TRANSFORMERS[(order, func.__name__)] = func
 
-@processor(order=1)
-def multiply(buffer: bytes, factor: int = 2) -> bytes:
-    """Transform the data in the buffer"""
-    return buffer * factor
-
-
-@processor(order=3)
-def add_newline(chunk):
-    """Add a newline to the end of the string"""
-    return chunk + "\n"
-
-
-@processor(order=4)
-def ensure_column_width(chunk, width=10):
-    """Ensure the string is at least width characters long"""
-    return chunk.ljust(width)
+    return _processor

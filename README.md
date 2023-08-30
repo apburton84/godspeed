@@ -6,7 +6,8 @@
 
 Welcome to the Godspeed project! 
 
-This project provides a versatile and memory-efficient solution for processing and transforming text streams in Python. Whether you're dealing with large text files, real-time data streams, or any scenario where memory is a concern, this tool aims to meet your needs.
+This project provides a versatile and memory-efficient solution for processing and transforming text streams in Python. 
+Whether you're dealing with large text files, real-time data streams, or any scenario where memory is a concern, this tool aims to meet your needs.
 
 ## Features
 
@@ -27,7 +28,7 @@ pip install godspeed
 ## Usage
 
 - **Custom Transformation**: Define your custom transformation function that takes a line of text as input and returns the transformed line. This function can perform any operation you need, such as text manipulation, data extraction, or filtering.
-- **Process Stream**: Use the TextStreamProcessor class to process the text stream. Provide the input and output file handles along with your custom transformation function.
+- **Process Stream**: Use the `godspeed()` function to process the text stream. Provide the input and output file handles along with your custom transformation function.
 - **Efficient Processing**: The library processes the text stream line by line, minimizing memory usage. It's suitable for situations where loading the entire text data into memory is not feasible.
 
 ## Example

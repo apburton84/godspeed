@@ -47,7 +47,7 @@ class GSStringWrapper(io.StringIO):
         """Iterate over the stream"""
         for line in self._stream.__iter__():
             if "" == line:
-                raise StopIteration
+                return False
             yield self.process(line)
 
     def process(self, chunk):
@@ -61,9 +61,13 @@ class GSStringWrapper(io.StringIO):
                 chunk = transformer[1](chunk)
         return chunk
 
+    def next(self):
+        """Get the next line from the stream"""
+        return self.process(self._stream.next())
+
     def write(self, chunk):
         """Write a chunk of data to the stream"""
-        self._stream.write(self.process(chunk))
+        return self._stream.write(self.process(chunk))
 
     def read(self, *args, **kwargs):
         """Read from the stream"""
@@ -84,15 +88,6 @@ class GSStringWrapper(io.StringIO):
     def flush(self, *args, **kwargs):
         """Flush the stream"""
         return self._stream.flush(*args, **kwargs)
-
-
-def processor(order=1):
-    """Register a transformer function to be used in the pipeline"""
-
-    def _processor(func, *args, **kwargs):
-        TRANSFORMERS[(order, func.__name__)] = func
-
-    return _processor
 
 
 def godspeed(stream: io.StringIO) -> GSStringWrapper:
