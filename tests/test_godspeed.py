@@ -1,7 +1,4 @@
-import sys
 import io
-
-sys.path.append("..")
 
 from godspeed.streaming import GSStringWrapper
 from godspeed import godspeed
@@ -14,17 +11,20 @@ def test_godspeed():
 
 
 class TestClassGSStringWrapper:
+    """Test class GSStringWrapper"""
+
     def test_process(self):
         """Test process method"""
         io_string = io.StringIO("Hello World")
         processor = GSStringWrapper(io_string)
         assert processor.process(io_string.read()) == "Hello World"
 
-    def test_enter(self):
+    def test_enter_exit(self):
         """Test enter method"""
         io_string = io.StringIO("Hello World")
         processor = GSStringWrapper(io_string)
-        assert processor.__enter__() == processor
+        with processor as file:
+            assert file == processor
 
     def test_exit(self):
         """Test exit method"""
@@ -35,8 +35,8 @@ class TestClassGSStringWrapper:
     def test_iter(self):
         """Test iter method"""
         io_string = io.StringIO("Hello World")
-        for s in GSStringWrapper(io_string):
-            assert "Hello World"
+        for line in GSStringWrapper(io_string):
+            assert line == "Hello World"
 
     def test_read(self):
         """Test read method"""
