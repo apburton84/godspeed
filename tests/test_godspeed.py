@@ -2,7 +2,7 @@ import io
 
 from godspeedio.streaming import GSStringWrapper
 from godspeedio import godspeed
-
+from godspeedio.state import get_state, State
 
 def test_godspeed():
     """Test godspeed function"""
@@ -73,3 +73,13 @@ class TestClassGSStringWrapper:
         io_string = io.StringIO("Hello World")
         processor = GSStringWrapper(io_string)
         assert processor.getvalue() == "Hello World"
+    
+
+def test_state():
+    """Test state object"""
+    state = get_state()
+    assert isinstance(state, State)
+    state.set("foo", "bar")
+    assert state.get("foo") == "bar"
+    assert state.get("baz") is None
+
