@@ -1,6 +1,5 @@
 import io
 from decorator import decorator
-from .state import State
 from .transformers import TRANSFORMERS, sort_transformers
 
 
