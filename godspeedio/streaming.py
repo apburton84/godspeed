@@ -1,5 +1,6 @@
 import io
 from decorator import decorator
+from .state import State
 from .transformers import TRANSFORMERS, sort_transformers
 
 
@@ -27,6 +28,11 @@ class GSStringWrapper(io.StringIO):
         super().__init__()
 
         self._stream = args[0] if len(args) > 0 else io.StringIO()
+
+        self._state = None
+        if kwargs.get("state", False):
+            self._state = State()   
+
         self._transformers = sort_transformers(TRANSFORMERS)
 
     def __enter__(self):
