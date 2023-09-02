@@ -1,5 +1,6 @@
 import io
 from decorator import decorator
+from .state import get_state
 from .transformers import TRANSFORMERS, sort_transformers
 
 
@@ -57,8 +58,10 @@ class GSStringWrapper(io.StringIO):
         Args:
             chunk: The chunk of data to process
         """
-        if isinstance(chunk, str):
-            for transformer in self._transformers:
+        for transformer in self._transformers:
+            if transformer[0][2]:
+                chunk = transformer[1](chunk, get_state())
+            else:
                 chunk = transformer[1](chunk)
         return chunk
 
