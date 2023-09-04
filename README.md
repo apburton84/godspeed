@@ -47,7 +47,7 @@ def ensure_equal_columns(chunk, width=10, sep=","):
 
 
 file = open("large_file.csv")
-with godspeedio(file_obj) as f:
+with godspeed(file_obj) as f:
     for chunk in f:
       pass # Do something with the line (post processing)
 ```
@@ -88,14 +88,14 @@ def ensure_equal_columns(chunk, width=10, sep=","):
 
 ```python
 file = open("large_file.csv")
-with godspeedio(file_obj) as f:
+with godspeed(file_obj) as f:
    for chunk in f:
        pass # Do something with the line (post processing)
 ```
 
 - This part of the code demonstrates how to use the `godspeedio` library to process a large CSV file.
 - It opens the file named "large_file.csv".
-- The `godspeedio` function is used as a context manager by passing the file object `file` to it.
+- The `godspeed` function is used as a context manager by passing the file object `file` to it.
 - Inside the context, a loop iterates over the chunks (lines) of the file.
 - Sequencially applying the transformations to each line.
 
