@@ -3,12 +3,10 @@ from setuptools import setup
 with open("README.md", "r", encoding="utf-8") as f:
     README = f.read()
 
-print(README)
-
 setup(
     name="godspeedio",
     packages=["godspeedio"],
-    version="0.1.1",
+    version="0.1.2",
     license="MIT",
     description="memory efficient, fast, and easy to use stream processing library",
     long_description=README,
