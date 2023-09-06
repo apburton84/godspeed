@@ -100,6 +100,63 @@ with godspeed(file_obj) as f:
 - Sequencially applying the transformations to each line.
 
 
+## 📣 Example - state management
+
+This code sample demonstrates how to use the state management functionality provided by the `godspeedio` library. The primary purpose of this code appears to be to process a large CSV file while maintaining and updating some state information as it processes each line. Let's break down the code and focus on the state management aspect:
+
+```python
+from godspeedio import godspeed, processor
+
+
+@processor(state=True)
+def add_relationship(chunk, state):
+    # this will be true for the first row
+    if "01" == chunk[0:2]:
+        state.set("parent_id", chunk.split("*")[1])
+    return chunk.rstrip("\n") + "*" + state.get("parent_id") + "\n"
+
+
+file = open("large_file.csv")
+with godspeed(file_obj) as f:
+    for chunk in f:
+        pass  # Do something with the line (post processing)
+```
+
+1. Importing Dependencies:
+   ```python
+   from godspeedio import godspeed, processor
+   ```
+   - The code imports two modules from the `godspeedio` library: `godspeed` and `processor`. These modules are used for file input/output and defining custom processing functions.
+
+2. Defining a Custom Processor Function with State:
+   ```python
+   @processor(state=True)
+   def add_relationship(chunk, state):
+       # this will be true for the first row
+       if "01" == chunk[0:2]:
+           state.set("parent_id", chunk.split("*")[1])
+       return chunk.rstrip("\n") + "*" + state.get("parent_id") + "\n"
+   ```
+   - The `@processor(state=True)` decorator is used to create a custom processing function called `add_relationship`. The `state=True` argument indicates that this function will use a state object to store and share data between processing iterations.
+   - Inside this function:
+     - It checks if the first two characters of the `chunk` are equal to "01". If this condition is met, it extracts information from the chunk and stores it in the state object using `state.set()`.
+     - It modifies the `chunk` by appending some data extracted from the state object and removing any trailing newline characters.
+     - Finally, it returns the modified `chunk`.
+
+3. Opening and Reading the CSV File:
+   ```python
+   file = open("large_file.csv")
+   with godspeed(file_obj) as f:
+       for chunk in f:
+           pass  # Do something with the line (post processing)
+   ```
+   - The script opens a CSV file named "large_file.csv" for reading and assigns it to the `file` variable.
+   - It then uses a `godspeed` context manager (`with godspeed(file_obj) as f`) to read the file line by line. The `with` statement ensures that the file is properly closed after processing.
+   - Inside the loop (`for chunk in f:`), each line (or chunk) from the CSV file is processed. However, the loop currently contains a placeholder (`pass`), indicating that the actual post-processing logic needs to be implemented here.
+
+In summary, this example showcases the use of the `godspeedio` library's state management functionality, allowing you to maintain and update shared data (in this case, "parent_id") while processing a large CSV file. The actual post-processing logic should be implemented inside the loop to take advantage of the state information stored in the `add_relationship` function.
+
+
 **Ease of Use:**
 
 The "godspeedio" library simplifies the process of efficiently processing large CSV files by breaking down the processing steps into smaller, manageable functions. By using the `@processor` decorator, you can define individual processing functions and apply them in a specified order. This modular approach makes the code more readable, maintainable, and extensible.
