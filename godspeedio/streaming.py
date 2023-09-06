@@ -31,8 +31,8 @@ class GSStringWrapper(io.StringIO):
 
         self._transformers = sort_transformers(TRANSFORMERS)
 
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        self.line_delimiter = kwargs.get("line_delimiter", "\n")
+        self.field_delimiter = kwargs.get("field_delimiter", ",")
 
     def __enter__(self):
         """Enter the stream"""
@@ -84,11 +84,11 @@ class GSStringWrapper(io.StringIO):
         if resp is None or "" == resp:
             return resp
 
-        if self.delimiter != resp[-1]:
-            resp += self.read_until(self.delimiter)
+        if self.line_delimiter != resp[-1]:
+            resp += self.read_until(self.line_delimiter)
 
         post = ""
-        for split in resp.split(self.delimiter):
+        for split in resp.split(self.line_delimiter):
             post += self.process(split)
 
         return post
@@ -98,6 +98,8 @@ class GSStringWrapper(io.StringIO):
         resp = ""
         while True:
             read_one = self._stream.read(1)
+            if read_one == "":
+                break
             if read_one is None:
                 break
             elif resp[-1] == delimiter:
