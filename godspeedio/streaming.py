@@ -31,6 +31,9 @@ class GSStringWrapper(io.StringIO):
 
         self._transformers = sort_transformers(TRANSFORMERS)
 
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
     def __enter__(self):
         """Enter the stream"""
         return self
@@ -49,7 +52,7 @@ class GSStringWrapper(io.StringIO):
         """Iterate over the stream"""
         for line in self._stream.__iter__():
             if "" == line:
-                return False
+                yield False
             yield self.process(line)
 
     def process(self, chunk):
@@ -58,11 +61,13 @@ class GSStringWrapper(io.StringIO):
         Args:
             chunk: The chunk of data to process
         """
-        for transformer in self._transformers:
-            if transformer[0][2]:
-                chunk = transformer[1](chunk, get_state())
-            else:
-                chunk = transformer[1](chunk)
+        if chunk:
+            for transformer in self._transformers:
+                if transformer[0][2]:
+                    chunk = transformer[1](chunk, get_state())
+                else:
+                    chunk = transformer[1](chunk)
+
         return chunk
 
     def next(self):
@@ -75,7 +80,32 @@ class GSStringWrapper(io.StringIO):
 
     def read(self, *args, **kwargs):
         """Read from the stream"""
-        return self.process(self._stream.read(*args, **kwargs))
+        resp = self._stream.read(*args, **kwargs)
+        if resp is None or "" == resp:
+            return resp
+
+        if self.delimiter != resp[-1]:
+            resp += self.read_until(self.delimiter)
+
+        post = ""
+        for split in resp.split(self.delimiter):
+            post += self.process(split)
+
+        return post
+
+    def read_until(self, delimiter):
+        """Read until a delimiter is found or EOF"""
+        resp = ""
+        while True:
+            read_one = self._stream.read(1)
+            if read_one is None:
+                break
+            elif resp[-1] == delimiter:
+                break
+            else:
+                resp += read_one
+
+        return resp
 
     def readline(self, *args, **kwargs):
         """Read a line from the stream"""
@@ -94,7 +124,7 @@ class GSStringWrapper(io.StringIO):
         return self._stream.flush(*args, **kwargs)
 
 
-def godspeed(stream: io.StringIO) -> GSStringWrapper:
+def godspeed(stream: io.StringIO, *args, **kwargs) -> GSStringWrapper:
     """Wrap a stream in a GSStringWrapper
 
     The purpose of this function is to allow the user to wrap any stream in a
@@ -117,4 +147,4 @@ def godspeed(stream: io.StringIO) -> GSStringWrapper:
         >>> stream.getvalue()
         'Goodbye World!'
     """
-    return GSStringWrapper(stream)
+    return GSStringWrapper(stream, *args, **kwargs)
